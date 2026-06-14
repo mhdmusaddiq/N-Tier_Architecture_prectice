@@ -8,17 +8,17 @@ namespace N_Tier_Architecture.Controllers
     [ApiController]
     public class ProdectController : ControllerBase
     {
-        ProdectService _prodectService;
+      IProductService _productService;
 
-        public ProdectController(IConfiguration configuration)
+        public ProdectController(IProductService productService)
         {
-            _prodectService = new ProdectService(configuration);
+            _productService = productService;
         }
 
         [HttpGet]
-        public IActionResult GetAllProdects()
+        public IActionResult GetAProdects()
         {
-            var Products = _prodectService.GetAllFromServices();
+            var Products = _productService.GetAllFromServices();
             return Ok(Products);
         }
 

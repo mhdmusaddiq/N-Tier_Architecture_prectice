@@ -2,28 +2,26 @@
 using N_Tier_Architecture.Model;
 
 namespace N_Tier_Architecture.Repository
-    
-{
-    public class ProductRepository
-    {
-        //1 . inject Iconfiguration
-        private readonly IConfiguration _configuration;
 
-        public ProductRepository(IConfiguration configuration) 
+{
+    public class ProductRepository : IProductRepository
+    {
+        private readonly IConfiguration _configuration;
+        public ProductRepository(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
         //2.create a method
 
-        public List<Product> GetAllProdects()
+        public List<Product> GetAllProducts()
         {
             //3.Create emty list
             List<Product> ProductList = new List<Product>();
 
             //4. create data base connection
 
-            string ConnectionString =_configuration.GetConnectionString("DefaultConnection");
+            string ConnectionString = _configuration.GetConnectionString("DefaultConnection");
 
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
@@ -32,7 +30,8 @@ namespace N_Tier_Architecture.Repository
                 SqlCommand cmd = new SqlCommand(query, connection);
                 SqlDataReader reader = cmd.ExecuteReader();
 
-                while (reader.Read()) {
+                while (reader.Read())
+                {
 
                     Product newProduct = new Product
                     {
@@ -43,8 +42,10 @@ namespace N_Tier_Architecture.Repository
                     };
                     ProductList.Add(newProduct);
                 }
-            };
+            }
             return ProductList;
         }
+
     }
 }
+

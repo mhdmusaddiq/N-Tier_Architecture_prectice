@@ -2,7 +2,7 @@
 
 namespace N_Tier_Architecture.Repository
 {
-    public interface IproductRepository
+    public interface IProductRepository
     {
             List<Product> GetAllProducts();
         

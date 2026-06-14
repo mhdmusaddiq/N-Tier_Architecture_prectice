@@ -3,17 +3,17 @@ using N_Tier_Architecture.Repository;
 
 namespace N_Tier_Architecture.Service
 {
-    public class ProdectService
+    public class ProdectService : IProductService
     {
-        ProductRepository repository;
-        public ProdectService(IConfiguration configuration)
+        IProductRepository _repository;
+        public ProdectService(IProductRepository repository)
         {
-            repository = new ProductRepository(configuration);
+            _repository = repository;
         }
 
         public List<Product> GetAllFromServices()
         {
-            var products = repository.GetAllProdects();
+            var products = _repository.GetAllProducts();
             return products;
         }
 
